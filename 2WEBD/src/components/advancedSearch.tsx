@@ -10,8 +10,12 @@ const AdvancedSearch: React.FC = () => {
 
   const handleSearch = async () => {
     const query = `departmentId=${department}&dateBegin=${date}&tags=${tags}`;
-    const data = await searchObjects(query);
-    navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
+    try {
+      const data = await searchObjects(query);
+      navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
   };
 
   return (

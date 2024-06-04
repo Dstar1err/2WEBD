@@ -7,8 +7,12 @@ const QuickSearch: React.FC = () => {
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const data = await searchObjects(query);
-    navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
+    try {
+      const data = await searchObjects(query);
+      navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
   };
 
   return (

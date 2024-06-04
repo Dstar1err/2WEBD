@@ -1,21 +1,26 @@
-import axios from 'axios';
-
-const baseURL = 'https://collectionapi.metmuseum.org/public/collection/v1';
+// src/api/metAPI.ts
+const BASE_URL = 'https://collectionapi.metmuseum.org/public/collection/v1';
 
 export const searchObjects = async (query: string) => {
-  const response = await axios.get(`${baseURL}/search`, {
-    params: { q: query }
-  });
-  return response.data;
+  const response = await fetch(`${BASE_URL}/search?q=${query}`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
 };
 
-export const getObjectDetails = async (objectId: number) => {
-  const response = await axios.get(`${baseURL}/objects/${objectId}`);
-  return response.data;
+export const getObjectDetails = async (objectID: number) => {
+  const response = await fetch(`${BASE_URL}/objects/${objectID}`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
 };
 
-export const getHighlightObjects = async () => {
-  // Assuming there is a specific endpoint or method to get highlight objects
-  const response = await axios.get(`${baseURL}/objects/highlights`);
-  return response.data;
+export const getHighlightObjects = async (id: number) => {
+  const response = await fetch(`${BASE_URL}/search?hasImages=true&q=${id}`);
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
 };
