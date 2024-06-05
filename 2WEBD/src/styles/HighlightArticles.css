@@ -1,0 +1,33 @@
+/* src/styles/HighlightArticles.css */
+
+.highlight-articles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
+
+.article {
+  flex: 1 1 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  text-align: center;
+}
+
+.article img {
+  max-width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.article h2 {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.article p {
+  font-size: 14px;
+  color: #666;
+}

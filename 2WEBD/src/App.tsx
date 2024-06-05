@@ -7,6 +7,7 @@ import AdvancedSearchPage from './pages/advancedSearchPage';
 import ObjectDetailPage from './pages/objectDetailPage';
 import SearchResults from './pages/searchResults';
 
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -16,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/search" element={<AdvancedSearchPage />} />
           <Route path="/search" element={<SearchResults />} />
         <Route path="/object/:id" element={<ObjectDetailPage />} />
+
       </Routes>
         <Footer />
     </Router>
