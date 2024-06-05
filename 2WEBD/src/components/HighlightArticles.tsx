@@ -38,7 +38,7 @@ const HighlightArticles: React.FC = () => {
 
   return (
     <div>
-      <h2>Highlighted Articles</h2>
+      <h2>Popupal Articles</h2>
       <ul>
         {highlights.map(object => (
           <li key={object.objectID}>

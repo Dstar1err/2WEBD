@@ -1,54 +1,45 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { getObjectDetails } from '../api/metMusuem';
+import '../styles/searchResults.css';
 
 const SearchResults: React.FC = () => {
   const location = useLocation();
   const { results, query } = location.state || {};
+  const [objects, setObjects] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchObjects = async () => {
+      if (results && results.length > 0) {
+        const objectsData = await Promise.all(results.map((id: number) => getObjectDetails(id)));
+        setObjects(objectsData);
+      }
+    };
+
+    fetchObjects();
+  }, [results]);
 
   if (!results || results.length === 0) {
     return <div>No results found for "{query}"</div>;
   }
 
   return (
-    <div>
+    <div className="search-results">
       <h1>Search Results for "{query}"</h1>
       <ul>
-        {results.map((id: number) => (
-          <li key={id}>
-            <ObjectSummary objectId={id} />
+        {objects.map((object) => (
+          <li key={object.objectID}>
+            <div className="object-summary">
+              <img src={object.primaryImageSmall} alt={object.title} />
+              <div>
+                <h2>{object.title}</h2>
+                <p>{object.artistDisplayName}</p>
+                <Link to={`/object/${object.objectID}`}>View Details</Link>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
-    </div>
-  );
-};
-
-const ObjectSummary: React.FC<{ objectId: number }> = ({ objectId }) => {
-  const [object, setObject] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    const fetchObjectDetails = async () => {
-      try {
-        const data = await getObjectDetails(objectId);
-        setObject(data);
-      } catch (error) {
-        console.error('Error fetching object details:', error);
-      }
-    };
-
-    fetchObjectDetails();
-  }, [objectId]);
-
-  if (!object) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      <img src={object.primaryImageSmall} alt={object.title} />
-      <h2>{object.title}</h2>
-      <p>{object.artistDisplayName}</p>
     </div>
   );
 };

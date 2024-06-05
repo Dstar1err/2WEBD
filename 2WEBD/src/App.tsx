@@ -6,6 +6,7 @@ import HomePage from './pages/homePage';
 import AdvancedSearchPage from './pages/advancedSearchPage';
 import ObjectDetailPage from './pages/objectDetailPage';
 import SearchResults from './pages/searchResults';
+import HighlightArticles from './components/HighlightArticles';
 
 
 const App: React.FC = () => {
@@ -13,11 +14,13 @@ const App: React.FC = () => {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/search" element={<AdvancedSearchPage />} />
+        <Route>
+          <Route index element={<HomePage />} />
+          <Route path="/advanced-search" element={<AdvancedSearchPage />} />
           <Route path="/search" element={<SearchResults />} />
+          <Route path="/highlights" element={<HighlightArticles />} />
+        </Route>
         <Route path="/object/:id" element={<ObjectDetailPage />} />
-
       </Routes>
         <Footer />
     </Router>
