@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { searchObjects, getObjectDetails } from '../api/metMusuem';
-import '../styles/quicksearch.css';
+import '../styles/quickSearch.css';
 
 const QuickSearch: React.FC = () => {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<any[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -26,17 +25,8 @@ const QuickSearch: React.FC = () => {
     fetchResults();
   }, [query]);
 
-  const handleSearch = async () => {
-    try {
-      const data = await searchObjects(query);
-      navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-    }
-  };
-
   return (
-    <div>
+    <div className="quick-search">
       <input
         type="text"
         value={query}
@@ -44,20 +34,16 @@ const QuickSearch: React.FC = () => {
         placeholder="Search the collection..."
         className="search-bar"
       />
-      <button onClick={handleSearch} className="button">Search</button>
+      <Link to="/advanced-search" className="advanced-search-button">Advanced Search</Link>
       <div className="search-results">
         {results.map((object) => (
-            <Link to={`/object/${object.objectID}`}>
-              <div key={object.objectID} className="search-result-item">
-                <img src={object.primaryImageSmall} alt={object.title}/>
-                <div>
-                  <h2>{object.title}</h2>
-                  <p>{object.artistDisplayName}</p>
-
-                </div>
-              </div>
-            </Link>
-
+          <Link to={`/object/${object.objectID}`} key={object.objectID} className="search-result-item">
+            <img src={object.primaryImageSmall} alt={object.title} className="search-result-image" />
+            <div>
+              <h2 className="search-result-title">{object.title}</h2>
+              <p className="search-result-artist">{object.artistDisplayName}</p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

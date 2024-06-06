@@ -1,5 +1,5 @@
 import React from 'react';
-import HighlightArticles from '../components/HighlightArticles';
+import HighlightArticles from '../components/highlightArticles.tsx';
 
 const HomePage: React.FC = () => {
   return (

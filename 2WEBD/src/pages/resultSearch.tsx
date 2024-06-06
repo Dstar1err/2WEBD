@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getObjectDetails } from '../api/metMusuem';
-import '../styles/searchResults.css';
+import '../styles/resultSearch.css';
 
 const SearchResults: React.FC = () => {
   const location = useLocation();
@@ -28,16 +28,17 @@ const SearchResults: React.FC = () => {
       <h1>Search Results for "{query}"</h1>
       <ul>
         {objects.map((object) => (
+            <Link to={`/object/${object.objectID}`}>
           <li key={object.objectID}>
             <div className="object-summary">
               <img src={object.primaryImageSmall} alt={object.title} />
               <div>
                 <h2>{object.title}</h2>
                 <p>{object.artistDisplayName}</p>
-                <Link to={`/object/${object.objectID}`}>View Details</Link>
               </div>
             </div>
           </li>
+            </Link>
         ))}
       </ul>
     </div>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { getHighlightObjects, getObjectDetails } from '../api/metMusuem';
+import QuickSearch from "./quickSearch.tsx";
+import '../styles/highlightArticles.css';
 
 interface HighlightObject {
   objectID: number;
@@ -11,6 +13,10 @@ interface HighlightObject {
 
 const HighlightArticles: React.FC = () => {
   const [highlights, setHighlights] = useState<HighlightObject[]>([]);
+  const location = useLocation();
+  const results = location.state;
+
+  console.log("results in AdvancedSearch", results);
 
   useEffect(() => {
     const fetchHighlights = async () => {
@@ -38,18 +44,23 @@ const HighlightArticles: React.FC = () => {
 
   return (
     <div>
-      <h2>Popupal Articles</h2>
-      <ul>
-        {highlights.map(object => (
-          <li key={object.objectID}>
-            <Link to={`/object/${object.objectID}`}>
-              <img src={object.primaryImage} alt={object.title} width="100" />
-              <p>{object.title}</p>
-              <p>{object.artistDisplayName}</p>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <QuickSearch />
+      </div>
+      <div className="HighlightArticles">
+        <h2 className="title">Popular Articles</h2>
+        <ul className="highlight-list">
+          {highlights.map(object => (
+            <li key={object.objectID} className="highlight-item">
+              <Link to={`/object/${object.objectID}`} className="highlight-link">
+                <img src={object.primaryImage} alt={object.title} width="100" className="highlight-image" />
+                <p className="highlight-title">{object.title}</p>
+                <p className="highlight-artist">{object.artistDisplayName}</p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };

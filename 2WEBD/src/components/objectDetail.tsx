@@ -22,7 +22,7 @@ const ObjectDetail: React.FC = () => {
   if (!object) return <div>Loading...</div>;
 
   return (
-      <div>
+      <div className="container">
           <div className="image-wrapper">
               <img alt={object.objectName} src={object.primaryImageSmall}/>
           </div>

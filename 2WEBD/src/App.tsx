@@ -5,8 +5,7 @@ import Footer from './components/footer';
 import HomePage from './pages/homePage';
 import AdvancedSearchPage from './pages/advancedSearchPage';
 import ObjectDetailPage from './pages/objectDetailPage';
-import SearchResults from './pages/searchResults';
-import HighlightArticles from './components/HighlightArticles';
+import ResultSearch from "./pages/resultSearch.tsx";
 
 
 const App: React.FC = () => {
@@ -17,8 +16,7 @@ const App: React.FC = () => {
         <Route>
           <Route index element={<HomePage />} />
           <Route path="/advanced-search" element={<AdvancedSearchPage />} />
-          <Route path="/search" element={<SearchResults />} />
-          <Route path="/highlights" element={<HighlightArticles />} />
+            <Route path="/search" element={<ResultSearch />} />
         </Route>
         <Route path="/object/:id" element={<ObjectDetailPage />} />
       </Routes>

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { searchObjects } from '../api/metMusuem';
+import '../styles/advencedSearch.css';
 
 const AdvancedSearch: React.FC = () => {
-  const [department, setDepartment] = useState('');
-  const [date, setDate] = useState('');
+  const [title, setTitle] = useState('');
+  const [artistName, setArtistName] = useState('');
   const [tags, setTags] = useState('');
   const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const query = `departmentId=${department}&dateBegin=${date}&tags=${tags}`;
+    const query = `title=${title}&artistName=${artistName}&tags=${tags}`;
     try {
       const data = await searchObjects(query);
       navigate('/search', { state: { results: data.objectIDs.slice(0, 10), query } });
@@ -24,15 +25,15 @@ const AdvancedSearch: React.FC = () => {
       <form>
         <input
           type="text"
-          value={department}
-          onChange={(e) => setDepartment(e.target.value)}
-          placeholder="Department ID"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Title"
         />
         <input
           type="text"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          placeholder="Date"
+          value={artistName}
+          onChange={(e) => setArtistName(e.target.value)}
+          placeholder="Artist Name"
         />
         <input
           type="text"
